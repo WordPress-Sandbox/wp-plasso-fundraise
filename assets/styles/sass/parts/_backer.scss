@@ -1,0 +1,32 @@
+
+/* Backer
+---------------------------------------------------------------------------------------------------- */
+
+.backer-module {
+	background-color: $grey7;
+	padding-bottom: 20px;
+
+	.module {
+		float: left;
+		margin: 0 25px;
+		overflow: hidden;
+	}
+
+	.card {
+		z-index: 99;
+		position: relative;
+		background-color: white;
+		overflow: hidden;
+		max-width: 560px;
+		padding: 20px;
+		margin: 0 auto;
+		margin-top: -60px;
+		@include large-shadow2;
+	}
+
+	.btn {
+		margin-top: 15px;
+
+		display: inline-block;
+	}
+}

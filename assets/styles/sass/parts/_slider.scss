@@ -1,0 +1,35 @@
+
+/* Slider
+---------------------------------------------------------------------------------------------------- */
+
+.slider {
+	background-color: $grey1;
+	color: white;
+	text-align: center;
+	padding: 12% 0;
+	
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	.content {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 30px;
+	}
+
+	.sub-text {
+		color: white;
+	}
+
+	h2 {
+		font-size: 64px;
+		font-weight: 700;
+		margin-bottom: 20px;
+		color: white;
+	}
+
+	p {
+		margin-bottom: 40px;
+	}
+}

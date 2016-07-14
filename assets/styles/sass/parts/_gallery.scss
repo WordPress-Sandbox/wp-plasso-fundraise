@@ -1,0 +1,44 @@
+
+/* Gallery
+---------------------------------------------------------------------------------------------------- */
+
+.gallery {
+	background-color: $grey7;
+
+	[class*='col-'] {
+		padding: 0 10px;
+	}
+
+	.grid {
+		text-align: center;
+	}
+
+	.image {
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+
+		border: 5px solid #ffffff;
+
+		@include large-shadow2;
+
+		padding-top: 56.25%;
+		margin-bottom: 20px;
+	}
+}
+
+.grid {
+	padding-bottom: 80px;
+
+	img {
+		margin-bottom: 20px;
+	}
+
+	h4 {
+		margin-bottom: 20px;
+	}
+
+	p {
+		color: $grey4;
+	}
+}
