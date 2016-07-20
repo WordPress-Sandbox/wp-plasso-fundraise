@@ -1,137 +1,163 @@
-<?php
+<?php $plasso = get_theme_mod('plasso'); ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+		<meta name="description" content="<?php echo get_bloginfo( 'description' ); ?>">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
+		<?php wp_head(); ?>
+	</head>
 
-    // Get the header.
-    get_header();
+    <body>
+    	<?php
 
-	// Get theme settings.
-	$plasso = get_theme_mod('plasso');
-?>
+		// Welcome: If nothing has been customized, fet the welcome template.
+		if(
+	        $plasso['header_toggle'] == false &&
+	        $plasso['intro_toggle'] == false &&
+	        $plasso['features_toggle'] == false &&
+	        $plasso['images_toggle'] == false &&
+	        $plasso['backer_toggle'] == false &&
+	        $plasso['newsletter_toggle'] == false &&
+	        $plasso['footer_toggle'] == false
+	    ) {
+	        get_template_part('content-welcome');
+	    }
 
-<?php if($plasso['intro_toggle'] == true) { ?>
-<div class="slider animated fadeInUp" id="intro" <?php if(!empty($plasso['intro_image'])) { ?>style="background-image: url(<?php echo $plasso['intro_image']; ?>);"<?php } ?>>
-	<div class="content animated fadeInUp delayed_05s">
-		<?php if(!empty($plasso['intro_pre_tagline'])) { ?>
-			<div class="sub-text"><?php echo $plasso['intro_pre_tagline']; ?></div>
-		<?php } ?>
+		// If 404: Get the 404 message if there’s an error.
+        if(is_404()) {
+            get_template_part('content-404');
+        }
 
-		<?php if(!empty($plasso['intro_title'])) { ?>
-			<h2><?php echo $plasso['intro_title']; ?></h2>
-		<?php } ?>
+		?>
 
-		<?php if(!empty($plasso['intro_tagline'])) { ?>
-			<p><?php echo $plasso['intro_tagline']; ?></p>
-		<?php } ?>
+        <div class="wrapper">
+        	<?php
 
-		<?php if($plasso['intro_video_toggle'] == true) { ?>
-            <a class="open start" href="#video" data-video-type="<?php echo $plasso['intro_video_type']; ?>" data-video-id="<?php echo $plasso['intro_video_id']; ?>"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg"></a>
-		<?php } else { ?>
-            <?php if(!empty($plasso['space_id'])) { ?>
-            <a class="btn" href="https://plasso.co/s/<?php echo $plasso['space_id']; ?>">More Info</a>
-            <?php } else { ?>
-            <a class="btn" href="<?php echo site_url(); ?>/wp-admin/customize.php">Configure Your Product</a>
+			// Header: Get the header if it’s toggled (all pages).
+			if($plasso['header_toggle'] == true) {
+
+			?>
+        	<header class="header clearfix animated fadeInDown">
+				<div class="content">
+				    <div class="grid grid-pad">
+						<div class="col-1-3 mobile-col-1-3">
+							<div class="nav-left">
+								<ul class="clearfix nav">
+									<?php if($plasso['intro_toggle'] == true) { ?>
+								<li><a class="scroll" href="#intro">Intro</a></li>
+									<?php } ?>
+									<?php if($plasso['features_toggle'] == true) { ?>
+								<li><a class="scroll" href="#about">About</a></li>
+									<?php } ?>
+							    </ul>
+						    </div>
+						</div>
+
+						<div class="col-1-3 mobile-col-1-3">
+							<?php if(!empty($plasso['header_logo'])) { ?>
+		        			<a class="logo" href="<?php echo site_url(); ?>"><img src="<?php echo $plasso['header_logo']; ?>"></a>
+			                <?php } else { ?>
+		                    <h1><a href="<?php echo site_url(); ?>"><?php echo $plasso['header_text']; ?></a></h1>
+			            	<?php } ?>
+						</div>
+
+						<div class="col-1-3 mobile-col-1-3">
+							<div class="nav-right">
+								<ul class="clearfix nav">
+									<?php if($plasso['intro_toggle'] == true) { ?>
+									<li><a class="scroll" href="#features">Features</a></li>
+									<?php } ?>
+									<?php if($plasso['features_toggle'] == true) { ?>
+									<li><a class="scroll" href="#backer">Contact</a></li>
+									<?php } ?>
+							    </ul>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<?php } ?>
+
+			<?php
+
+            // If Home: Get the home page content if we’re home.
+            if(is_home()) {
+                get_template_part('content-home');
+            }
+
+            // If Page: Get the page content if we’re on a page.
+            if(is_page()) {
+                get_template_part('content-page');
+            }
+
+            ?>
+
+            <?php
+
+			// Newsletter: Get the newsletter form if it’s toggled (all pages).
+			if($plasso['newsletter_toggle'] == true) {
+
+			?>
+            <div class="newsletter">
+                <div class="content">
+                    <?php if(!empty($plasso['newsletter_text'])) { ?>
+                    <p><?php echo $plasso['newsletter_text']; ?></p>
+                    <?php } ?>
+
+                    <form action="" method="post">
+                        <input id="mc-email" type="mc-email" name="mc-email" type="email" placeholder="Enter your email address" required />
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
             <?php } ?>
-		<?php } ?>
-	</div>
-</div>
-<?php } ?>
 
-<?php if($plasso['backer_toggle'] == true) { ?>
-<div class="backer-module">
-	<div class="card">
-		<?php if(!empty($plasso['backer_raised'])) { ?>
-		<div class="module">
-			<h2 class="numbers"><?php echo $plasso['backer_raised']; ?>%</h2>
-			<div class="sub-text">Raised</div>
-		</div>
-		<?php } ?>
+            <?php
 
-		<?php if(!empty($plasso['backer_pledged'])) { ?>
-		<div class="module">
-			<h2 class="numbers">$<?php echo $plasso['backer_pledged']; ?></h2>
-			<div class="sub-text">Pledged</div>
-		</div>
-		<?php } ?>
+			// Footer: Get the footer if it’s toggled (all pages).
+			if($plasso['footer_toggle'] == true) {
 
-		<div class="module">
-			<?php if(!empty($plasso['space_id'])) { ?>
-            <a class="btn" href="https://plasso.co/s/<?php echo $plasso['space_id']; ?>">Become a Backer</a>
-            <?php } else { ?>
-            <a class="btn" href="<?php echo site_url(); ?>/wp-admin/customize.php">Configure Your Product</a>
-            <?php } ?>
-		</div>
-	</div>
-</div>
-<?php } ?>
-
-<?php if($plasso['images_toggle'] == true) { ?>
-<div class="image-gallery" id="about">
-	<div class="hero-text">
-		<div class="content animated fadeInUp delayed_07s">
-			<?php if(!empty($plasso['images_intro_pre_tagline'])) { ?>
-				<div class="sub-text"><?php echo $plasso['images_intro_pre_tagline']; ?></div>
-			<?php } ?>
-
-			<?php if(!empty($plasso['images_intro_headline'])) { ?>
-				<h2><?php echo $plasso['images_intro_headline']; ?></h2>
-			<?php } ?>
-
-	        <?php if(!empty($plasso['images_intro_text'])) { ?>
-				<p><?php echo $plasso['images_intro_text']; ?></p>
-			<?php } ?>
-		</div>
-	</div>
-
-	<div class="gallery">
-		<div class="content animated fadeInUp delayed_09s">
-			<div class="grid grid-pad">
-				<?php if (!empty($plasso['images_image'])) {
-				    foreach($plasso['images_image'] as $image) { ?>
-	                    <div class="col-1-4 mobile-col-1-4">
-	                    	<div class="image" style="background-image: url(<?php echo wp_get_attachment_url($image['image']); ?>);"></div>
-	                    </div>
-					<?php }
-				} ?>
-			</div>
-		</div>
-	</div>
-</div>
-<?php } ?>
-
-<?php if($plasso['features_toggle'] == true) { ?>
-<div class="features" id="features">
-	<div class="hero-text">
-		<div class="content animated fadeInUp delayed_07s">
-			<?php if(!empty($plasso['features_intro_pre_tagline'])) { ?>
-				<div class="sub-text"><?php echo $plasso['features_intro_pre_tagline']; ?></div>
-			<?php } ?>
-
-			<?php if(!empty($plasso['features_intro_headline'])) { ?>
-				<h2><?php echo $plasso['features_intro_headline']; ?></h2>
-			<?php } ?>
-
-	        <?php if(!empty($plasso['features_intro_text'])) { ?>
-				<p><?php echo $plasso['features_intro_text']; ?></p>
-			<?php } ?>
-		</div>
-	</div><!-- hero-text -->
-
-	<div class="content">
-		<div class="grid grid-pad">
-			<?php if (!empty($plasso['features_feature'])) {
-			    foreach($plasso['features_feature'] as $id => $feature) { ?>
-                    <div class="col-1-3 mobile-col-1-3">
-                        <?php if(!empty($feature['icon'])) { ?>
-        				<img src="<?php echo wp_get_attachment_url($feature['icon']); ?>">
+			?>
+            <footer>
+                <div class="content">
+                    <nav class="nav">
+                        <?php if($plasso['intro_toggle'] == true) { ?>
+                        <li><a class="scroll" href="#intro">Intro</a></li>
                         <?php } ?>
+                        <?php if($plasso['features_toggle'] == true) { ?>
+                        <li><a class="scroll" href="#about">About</a></li>
+                        <?php } ?>
+                        <?php if($plasso['intro_toggle'] == true) { ?>
+                        <li><a class="scroll" href="#features">Features</a></li>
+                        <?php } ?>
+                        <?php if($plasso['features_toggle'] == true) { ?>
+                        <li><a class="scroll" href="#backer">Contact</a></li>
+                        <?php } ?>
+                    </nav>
 
-                        <h4><?php echo $feature['title']; ?></h4>
-        			    <p><?php echo $feature['text']; ?></p>
-        			</div>
-				<?php }
-			} ?>
-		</div>
-	</div>
-</div>
-<?php } ?>
+                    <?php if(!empty($plasso['footer_text'])) { ?>
+                    <p><?php echo $plasso['footer_text']; ?></p>
+                    <?php } ?>
+                </div>
+            </footer>
+            <?php } ?>
+        </div>
 
-<?php get_footer(); ?>
+		<?php
+
+        // Video: The intro video panel if toggled.
+        if($plasso['intro_video_toggle'] == true) {
+
+        ?>
+        <div class="panel inactive" id="video">
+            <a class="icon close stop" href="#"></a>
+
+            <div class="content">
+            </div>
+        </div>
+        <?php } ?>
+
+        <?php wp_footer(); ?>
+    </body>
+</html>
