@@ -132,7 +132,7 @@ if($plasso['features_toggle'] == true) {
 		<div class="grid grid-pad">
 		<?php if (!empty($plasso['features_feature'])) {
 		    foreach($plasso['features_feature'] as $id => $feature) { ?>
-            <div class="col-1-3 mobile-col-1-3">
+            <div class="feature col-1-3 mobile-col-1-3">
                 <?php if(!empty($feature['icon'])) { ?>
 				<img src="<?php echo wp_get_attachment_url($feature['icon']); ?>">
                 <?php } ?>
